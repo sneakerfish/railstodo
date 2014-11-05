@@ -1,0 +1,25 @@
+<h1>Listing todos</h1>
+
+<div ng-controller="TodoCtrl">
+  <form ng-submit="addEntry()">
+    <input type="text" ng-model="newEntry.title">
+    <input type="textarea" ng-model="newEntry.notes">    
+    <input type="submit" value="Add">
+  </form>
+
+
+   <accordion close-others="true">
+    <accordion-group class="height: auto;" ng-repeat="entry in entries" heading="{{entry.title}}" ng-click="editEntry(entry)" is-open="entry.isopen">
+      <accordion-heading>
+        {{ entry.title }}
+        <button class="btn navbar-right btn-xs" ng-click="deleteEntry($index, entry, $event)"><span class="glyphicon glyphicon-remove"></span></button>
+      </accordion-heading>
+      <form ng-submit="updateEntry(entry)">
+        <input type="text" ng-model="entry.title">
+        <input type="textarea" ng-model="entry.notes">
+        <input type="submit" value="Update">
+      </form>
+    </accordion-group>
+  </accordion>
+
+</div>
