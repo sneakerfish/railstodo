@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/pascalw/rack-offline.git
+  revision: 355b2ecd88667857b26852a84a297c60fed7fc2d
+  specs:
+    rack-offline (0.6.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -34,6 +40,7 @@ GEM
       execjs
     bootstrap-sass (3.2.0.2)
       sass (~> 3.2)
+    bower-rails (0.8.3)
     builder (3.2.2)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -118,9 +125,11 @@ DEPENDENCIES
   angularjs-rails
   autoprefixer-rails
   bootstrap-sass (~> 3.2.0)
+  bower-rails
   coffee-rails (~> 4.0.0)
   jbuilder (~> 2.0)
   jquery-rails
+  rack-offline!
   rails (= 4.1.6)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)

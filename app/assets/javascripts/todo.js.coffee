@@ -1,15 +1,15 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
-app = angular.module("RailsTodo", ["ngResource", "ui.bootstrap"])
+app = angular.module("RailsTodo", ["ngCachedResource", "ui.bootstrap"])
 
-app.factory "Entry", ["$resource", ($resource) ->
-  $resource("/entries/:id", {id: "@id"}, {update: {method: "PUT"}})
+app.factory "Entry", ["$cachedResource", ($cachedResource) ->
+  $cachedResource("entries", "/entries/:id", {id: "@id"})
 ]
 
 @TodoCtrl = ["$scope", "Entry", (scope, Entry) ->
   scope.entries = Entry.query()
-  
+
   scope.addEntry = ->
     entry = Entry.save(scope.newEntry)
     scope.entries.push(entry)
@@ -27,6 +27,7 @@ app.factory "Entry", ["$resource", ($resource) ->
   	scope.isopen = newvalue
   	console.log ("Called on >>isopen<<; new is " + newvalue)
   )
+
 ]
 
 angular.module("template/accordion/accordion-group.html", []).run(["$templateCache", ($templateCache) ->

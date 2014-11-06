@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+
+  offline = Rack::Offline.configure :cache_interval => 120 do      
+    cache ActionController::Base.helpers.asset_path("application.css")
+    cache ActionController::Base.helpers.asset_path("application.js")
+    # cache other assets
+    network "/"  
+  end
+  get "/application.manifest" => offline  
+
   resources :entries, defaults: { format: 'json' }
 
   root 'todo#index'
