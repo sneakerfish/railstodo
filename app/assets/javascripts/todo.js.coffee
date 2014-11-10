@@ -4,18 +4,20 @@
 app = angular.module("RailsTodo", ["ngCachedResource", "ui.bootstrap"])
 
 app.factory "Entry", ["$cachedResource", ($cachedResource) ->
-  $cachedResource("entries", "/entries/:id", {id: "@id"}, {update: {method: "PUT"}})
+  $cachedResource("entriesx", "/entries/:id", {id: "@id"}, {update: {method: "PUT"}})
 ]
 
 @TodoCtrl = ["$scope", "Entry", (scope, Entry) ->
-  scope.entries = Entry.query()
+  scope.fetchEntries = ->
+    scope.entries = Entry.query()
+    console.log(scope.entries)
 
   scope.addEntry = ->
+    console.log(scope)
     entry = Entry.save(scope.newEntry)
     scope.entries.push(entry)
     entry.$promise.then( ->
       console.log("Saving an entry")
-      $cachedResource.clearUndefined()
       scope.newEntry = {}
     )
 
@@ -27,13 +29,15 @@ app.factory "Entry", ["$cachedResource", ($cachedResource) ->
     scope.entries.splice(index, 1)
     d = Entry.delete(entry)
     d.$promise.then( ->
-      $cachedResource.clearUndefined()
       console.log("Deleting an entry.")
     )
 
   scope.$watch('isopen', (newvalue, oldvalue, scope) ->
   	scope.isopen = newvalue
   )
-
+  scope.$watch('window.navigator.online', (newvalue, oldvalue, scope) ->
+    console.log("online = " + newvalue)  if typeof(newvalue) != 'undefined'
+  )
+  scope.fetchEntries()
 ]
 
