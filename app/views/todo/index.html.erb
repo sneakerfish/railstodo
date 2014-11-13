@@ -1,16 +1,19 @@
 <h1>To Do</h1>
 
 <div ng-controller="TodoCtrl">
-  <button class="btn navbar-right btn-lg" ng-click="fetchEntries()">Fetch</button>
+  <table class="table">
+  <tr>
 
+  <td>
   <form ng-submit="addEntry()">
     <input type="text" ng-model="newEntry.title">
     <input type="textarea" ng-model="newEntry.notes">    
     <input type="submit" value="Add">
   </form>
 
-
-
+  </td><td><button class="btn navbar-right btn-lg" ng-click="fetchEntries()">Fetch</button></td>
+  </tr><tr>
+  <td colspan="2">
    <accordion close-others="true">
     <accordion-group class="height: auto;" ng-repeat="entry in entries" heading="{{entry.title}}" ng-click="editEntry(entry)" is-open="entry.isopen">
       <accordion-heading>
@@ -24,5 +27,5 @@
       </form>
     </accordion-group>
   </accordion>
-
+  </td></tr></table>
 </div>
