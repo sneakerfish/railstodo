@@ -4,8 +4,30 @@
 app = angular.module("RailsTodo", ["ngCachedResource", "ui.bootstrap"])
 
 app.factory "Entry", ["$cachedResource", ($cachedResource) ->
-  $cachedResource("entriesx", "/entries/:id", {id: "@id"}, {update: {method: "PUT"}})
+  $cachedResource("entries", "/entries/:id", {id: "@id"}, {update: {method: "PUT"}})
 ]
+
+app.run ($rootScope) ->
+  # console.log("online:" + navigator.onLine);
+  $rootScope.online = (if navigator.onLine then "online" else "offline")
+  $rootScope.$apply()
+  if window.addEventListener
+    window.addEventListener "online", (->
+      $rootScope.online = "online"
+      $rootScope.$apply()
+    ), true
+    window.addEventListener "offline", (->
+      $rootScope.online = "offline"
+      $rootScope.$apply()
+    ), true
+  else
+    document.body.ononline = ->
+      $rootScope.online = "online"
+      $rootScope.$apply()
+
+    document.body.onoffline = ->
+      $rootScope.online = "offline"
+      $rootScope.$apply()
 
 @TodoCtrl = ["$scope", "Entry", (scope, Entry) ->
   scope.fetchEntries = ->
@@ -40,4 +62,3 @@ app.factory "Entry", ["$cachedResource", ($cachedResource) ->
   )
   scope.fetchEntries()
 ]
-
