@@ -54,6 +54,10 @@ app.run ($rootScope) ->
       console.log("Deleting an entry.")
     )
 
+  scope.fetchOS = ->
+    console.log("Os version fetched.")
+    scope.osversion = AndroidFunction.getOSVersion
+
   scope.$watch('isopen', (newvalue, oldvalue, scope) ->
   	scope.isopen = newvalue
   )
@@ -61,4 +65,5 @@ app.run ($rootScope) ->
     console.log("online = " + newvalue)  if typeof(newvalue) != 'undefined'
   )
   scope.fetchEntries()
+  scope.fetchOS()
 ]

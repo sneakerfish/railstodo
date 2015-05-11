@@ -1,5 +1,4 @@
 <h1>To Do</h1>
-
 <div ng-controller="TodoCtrl">
   <table class="table">
   <tr>
@@ -28,5 +27,17 @@
       </form>
     </accordion-group>
   </accordion>
-  </td></tr></table>
+  </td></tr>
+  <tr><td>Os version is: <div id='osversion'>{{osversion}}</div></td></tr></table>
 </div>
+
+ <div style="float: left;width: 50%;">
+           <input type="text" style="width: 180px;" 
+                   name="myText" id="mytextId" />
+           
+        </div>
+        <div style="clear: both;height: 3px;"> </div>
+        <div>
+          <input value="submit" type="button" name="submit" 
+            id="btnSubmit" onclick="javascript:return init();" /> 
+ </div>  
